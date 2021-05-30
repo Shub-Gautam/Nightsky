@@ -112,13 +112,13 @@
         android:layout_marginBottom="23dp"
         android:text="TextView"
         android:textColor="#474040"
-        app:layout_constraintBottom_toTopOf="@+id/city"
+        app:layout_constraintBottom_toTopOf="@+id/cityshow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <TextView
-        android:id="@+id/city"
+        android:id="@+id/cityshow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="58dp"
@@ -143,5 +143,18 @@
         android:textSize="52sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+        app:layout_constraintTop_toBottomOf="@+id/cityshow" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="99dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="123dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/country"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

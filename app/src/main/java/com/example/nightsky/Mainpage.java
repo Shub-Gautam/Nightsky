@@ -25,7 +25,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,8 +39,8 @@ public class Mainpage extends AppCompatActivity {
 
     EditText editText;
     Button button ;
-    ImageView imageview ;
-    TextView country , city , temp ;
+    ImageView imageviewshow ;
+    TextView country , cityshow1 , temp ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +73,9 @@ public class Mainpage extends AppCompatActivity {
         editText =findViewById(R.id.editTextTextPersonName);
         button = findViewById(R.id.button2);
         country = findViewById(R.id.country);
-        city=findViewById(R.id.city);
+        cityshow1=findViewById(R.id.cityshow);
         temp = findViewById(R.id.temperature);
-
+        imageviewshow = findViewById(R.id.imageView4);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -84,8 +86,8 @@ public class Mainpage extends AppCompatActivity {
 
     }
     public void findweather(){
-        final String city1 = city.getText().toString();
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=delhi&appid=3dfa5eae32c84d4f24d0f8efa1b9049c";
+        final String city1 = editText.getText().toString();
+        String url = "http://api.openweathermap.org/data/2.5/weather?q="+city1+"&appid=3dfa5eae32c84d4f24d0f8efa1b9049c";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -96,6 +98,20 @@ public class Mainpage extends AppCompatActivity {
                             JSONObject obj1 = jsonObject.getJSONObject("sys");
                             String countryfind  = obj1.getString("country");
                             country.setText(countryfind);
+
+
+                            String cityfind = jsonObject.getString("name");
+                            cityshow1.setText(cityfind);
+
+                            JSONObject obj3 = jsonObject.getJSONObject("main");
+                            double tempfind = obj3.getDouble("temp");
+                            temp.setText(""+tempfind+"C");
+
+                            JSONArray obj4 = jsonObject.getJSONArray("weather");
+                            JSONObject jsonObject1 = obj4.getJSONObject(0);
+                            String img = jsonObject1.getString("icon");
+
+                            Picasso.get().load("http://openweathermap.org/img/wn/"+img+"@2x.png").into(imageviewshow);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
