@@ -3,6 +3,9 @@ package com.example.nightsky;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -86,7 +90,24 @@ public class Mainpage extends AppCompatActivity {
 
     }
     public void findweather(){
-        final String city1 = editText.getText().toString();
+        final StringBuffer city1 = new StringBuffer(editText.getText().toString());
+
+        // Showing an error dialog when no city is entered and making it to delhi
+        if(city1.toString().isEmpty()){
+            new MaterialAlertDialogBuilder(Mainpage.this)
+                .setTitle("Warning")
+                .setMessage("Enter a valid city")
+        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        })
+        .show();
+        city1.append("Delhi");
+        }
+        //-----------------------------------------------------------
+
         String url = "http://api.openweathermap.org/data/2.5/weather?q="+city1+"&appid=3dfa5eae32c84d4f24d0f8efa1b9049c";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
