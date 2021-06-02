@@ -66,6 +66,7 @@ public class Mainpage extends AppCompatActivity {
                signOut();
             }
         });
+
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account!=null){
             String personName = account.getDisplayName();
@@ -89,6 +90,7 @@ public class Mainpage extends AppCompatActivity {
 
 
     }
+
     public void findweather(){
         final StringBuffer city1 = new StringBuffer(editText.getText().toString());
 
@@ -147,6 +149,7 @@ public class Mainpage extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(Mainpage.this);
         requestQueue.add(stringRequest);
     }
+
     private void signOut(){
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
